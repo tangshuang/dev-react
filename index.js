@@ -10,4 +10,4 @@ const cwd = process.cwd()
 const file = path.resolve(cwd, entry)
 
 shell.cd(__dirname)
-shell.exec(`ENTRY="${file}" PORT=${port} CWD="${cwd}" webpack-dev-server --config=./source/webpack.config.js`)
+shell.exec(`ENTRY="${file}" PORT=${port} CWD="${cwd}" ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config=./source/webpack.config.js`)
