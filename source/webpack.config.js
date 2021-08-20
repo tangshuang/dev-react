@@ -30,7 +30,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.js(x)?$/,
+        test: /\.js(x)?$/,
         loader: resolve('babel-loader'),
         options: {
           presets: [
@@ -39,19 +39,23 @@ module.exports = {
         },
       },
       {
-        test: /.css$/,
+        test: /\.css$/,
         use: [
           resolve('style-loader'),
           resolve('css-loader'),
         ],
       },
       {
-        test: /.less$/,
+        test: /\.less$/,
         use: [
           resolve('style-loader'),
           resolve('css-loader'),
           resolve('less-loader'),
         ],
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|woff|woff2)$/,
+        loader: 'file-loader',
       },
     ],
   },
