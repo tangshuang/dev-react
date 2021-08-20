@@ -1,0 +1,27 @@
+{
+  "name": "dev-react",
+  "version": "0.0.1",
+  "description": "preview a single react component by an dev server",
+  "main": "index.js",
+  "bin": {
+    "dev-react": "index.js"
+  },
+  "scripts": {
+    "dev": "node index ./source/app.jsx --port=9001"
+  },
+  "author": "tangshuang",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.2",
+    "process.args": "^0.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "shelljs": "^0.8.4",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  }
+}
