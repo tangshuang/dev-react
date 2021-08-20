@@ -17,6 +17,8 @@ module.exports = {
   resolve: {
     alias: {
       app: path.resolve(process.env.ENTRY),
+      react: resolve('react'),
+      'react-dom': resolve('react-dom'),
     },
   },
   plugins: [
