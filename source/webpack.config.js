@@ -2,6 +2,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const { DefinePlugin } = require('webpack')
 
+const resolve = (pkg) => {
+  return path.resolve(__dirname, '../node_modules', pkg)
+}
+
 module.exports = {
   mode: 'none',
   devtool: 'eval-cheap-source-map',
@@ -26,14 +30,29 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /js(x)?$/,
-        loader: path.resolve(__dirname, '../node_modules/babel-loader'),
+        test: /.js(x)?$/,
+        loader: resolve('babel-loader'),
         options: {
           presets: [
-            path.resolve(__dirname, '../node_modules/@babel/preset-react'),
+            resolve('@babel/preset-react'),
           ]
         },
-      }
+      },
+      {
+        test: /.css$/,
+        use: [
+          resolve('style-loader'),
+          resolve('css-loader'),
+        ],
+      },
+      {
+        test: /.less$/,
+        use: [
+          resolve('style-loader'),
+          resolve('css-loader'),
+          resolve('less-loader'),
+        ],
+      },
     ],
   },
   devServer: {
