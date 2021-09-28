@@ -1,6 +1,6 @@
 {
   "name": "dev-react",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "preview a single react component by an dev server",
   "main": "index.js",
   "bin": {
