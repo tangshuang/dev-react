@@ -31,7 +31,6 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin({
       async: true,
-      checkSyntacticErrors: true,
     }),
   ],
   module: {
