@@ -27,8 +27,8 @@ const basic = {
     modules: [
       'node_modules',
       path.resolve(__dirname, '../node_modules'),
-      path.resolve(process.evn.CWD, 'node_modules'),
-      path.resolve(process.evn.ROOT, 'node_modules'),
+      path.resolve(process.env.CWD, 'node_modules'),
+      path.resolve(process.env.ROOT, 'node_modules'),
     ],
   },
   module: {
