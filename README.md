@@ -16,3 +16,4 @@ dev-react ./app.jsx
 
 - port: host port
 - tsconfig: tsconfig file relative path
+- root: project root dir path

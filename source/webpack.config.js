@@ -1,13 +1,16 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const { DefinePlugin } = require('webpack')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const { merge } = require('webpack-merge')
 
 const resolve = (pkg) => {
   return path.resolve(__dirname, '../node_modules', pkg)
 }
 
-module.exports = {
+const customWebpackConfigFile = process.env.WEBPACK_CONFIG
+const customWebpackConfig = customWebpackConfigFile ? require(customWebpackConfigFile) : {}
+
+const basic = {
   mode: 'none',
   devtool: 'eval-cheap-source-map',
   entry: __dirname + '/index.js',
@@ -21,18 +24,13 @@ module.exports = {
       react: resolve('react'),
       'react-dom': resolve('react-dom'),
     },
+    modules: [
+      'node_modules',
+      path.resolve(__dirname, '../node_modules'),
+      path.resolve(process.evn.CWD, 'node_modules'),
+      path.resolve(process.evn.ROOT, 'node_modules'),
+    ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: __dirname + '/index.html',
-    }),
-    new DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    new ForkTsCheckerWebpackPlugin({
-      async: true,
-    }),
-  ],
   module: {
     rules: [
       {
@@ -43,26 +41,6 @@ module.exports = {
             resolve('@babel/preset-react'),
           ]
         },
-      },
-      {
-        test: /\.ts(x)?$/,
-        use: [
-          {
-            loader: resolve('babel-loader'),
-            options: {
-              presets: [
-                resolve('@babel/preset-react'),
-              ],
-            },
-          },
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true,
-              configFile: process.env.TS_CONFIG ? path.resolve(process.env.CWD, process.env.TS_CONFIG) : path.resolve(__dirname, 'tsconfig.json'),
-            },
-          },
-        ],
       },
       {
         test: /\.css$/,
@@ -85,6 +63,14 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + '/index.html',
+    }),
+    new DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
+  ],
   devServer: {
     hot: true,
     liveReload: true,
@@ -95,3 +81,5 @@ module.exports = {
     },
   },
 }
+
+module.exports = merge(basic, customWebpackConfig)
