@@ -74,7 +74,8 @@ const basic = {
   devServer: {
     hot: true,
     liveReload: true,
-    port: process.env.PORT || 9000,
+    host: process.env.HOST,
+    port: process.env.PORT,
     open: true,
     static: {
       directory: process.env.CWD,
