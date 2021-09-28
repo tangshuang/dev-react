@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const { DefinePlugin } = require('webpack')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 const resolve = (pkg) => {
   return path.resolve(__dirname, '../node_modules', pkg)
@@ -28,6 +29,10 @@ module.exports = {
     new DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
+    new ForkTsCheckerWebpackPlugin({
+      async: true,
+      checkSyntacticErrors: true,
+    }),
   ],
   module: {
     rules: [
@@ -39,6 +44,26 @@ module.exports = {
             resolve('@babel/preset-react'),
           ]
         },
+      },
+      {
+        test: /\.ts(x)?$/,
+        use: [
+          {
+            loader: resolve('babel-loader'),
+            options: {
+              presets: [
+                resolve('@babel/preset-react'),
+              ],
+            },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              configFile: process.env.TS_CONFIG ? path.resolve(process.env.CWD, process.env.TS_CONFIG) : path.resolve(__dirname, 'tsconfig.json'),
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
