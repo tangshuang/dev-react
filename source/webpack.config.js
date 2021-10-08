@@ -57,10 +57,6 @@ const basic = {
           resolve('less-loader'),
         ],
       },
-      {
-        test: /\.(png|jpg|gif|svg|eot|woff|woff2)$/,
-        loader: 'file-loader',
-      },
     ],
   },
   plugins: [
